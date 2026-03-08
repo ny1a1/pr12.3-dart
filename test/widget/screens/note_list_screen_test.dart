@@ -24,4 +24,49 @@ void main() {
     await tester.pumpWidget(MaterialApp(home: NoteListScreen(notes: [])));
     expect(find.byIcon(Icons.add), findsOneWidget);
   });
+
+  testWidgets('Add note via FAB', (tester) async {
+    await tester.pumpWidget(MaterialApp(home: NoteListScreen(notes: [])));
+
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byKey(Key('titleField')), 'New Note');
+    await tester.enterText(find.byKey(Key('bodyField')), 'This is valid body text');
+    await tester.tap(find.byKey(Key('saveButton')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('New Note'), findsOneWidget);
+  });
+
+  testWidgets('Edit existing note', (tester) async {
+    final notes = [{'title': 'Old Title', 'body': 'Old body text'}];
+    await tester.pumpWidget(MaterialApp(home: NoteListScreen(notes: notes)));
+
+    await tester.longPress(find.text('Old Title'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Edit'));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byKey(const Key('titleField')), 'Updated Title');
+    await tester.enterText(find.byKey(const Key('bodyField')), 'Updated body text');
+    await tester.tap(find.byKey(const Key('saveButton')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Updated Title'), findsOneWidget);
+  });
+
+  testWidgets('Delete existing note', (tester) async {
+    final notes = [{'title': 'Note to delete', 'body': 'Some body'}];
+    await tester.pumpWidget(MaterialApp(home: NoteListScreen(notes: notes)));
+
+    await tester.longPress(find.text('Note to delete'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Delete'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Note to delete'), findsNothing);
+  });
 }

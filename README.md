@@ -8,3 +8,7 @@
 ```bash
 flutter test --coverage
 ```
+
+### CI/CD статус
+![CI](https://github.com/ny1a1/pr12.3-dart/actions/workflows/flutter_ci.yml/badge.svg)
+![Coverage](https://img.shields.io/codecov/c/github/ny1a1/pr12.3-dart)
