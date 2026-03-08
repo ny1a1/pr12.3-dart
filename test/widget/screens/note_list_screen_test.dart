@@ -32,7 +32,10 @@ void main() {
     await tester.pumpAndSettle();
 
     await tester.enterText(find.byKey(Key('titleField')), 'New Note');
-    await tester.enterText(find.byKey(Key('bodyField')), 'This is valid body text');
+    await tester.enterText(
+      find.byKey(Key('bodyField')),
+      'This is valid body text',
+    );
     await tester.tap(find.byKey(Key('saveButton')));
     await tester.pumpAndSettle();
 
@@ -40,7 +43,9 @@ void main() {
   });
 
   testWidgets('Edit existing note', (tester) async {
-    final notes = [{'title': 'Old Title', 'body': 'Old body text'}];
+    final notes = [
+      {'title': 'Old Title', 'body': 'Old body text'},
+    ];
     await tester.pumpWidget(MaterialApp(home: NoteListScreen(notes: notes)));
 
     await tester.longPress(find.text('Old Title'));
@@ -49,8 +54,14 @@ void main() {
     await tester.tap(find.text('Edit'));
     await tester.pumpAndSettle();
 
-    await tester.enterText(find.byKey(const Key('titleField')), 'Updated Title');
-    await tester.enterText(find.byKey(const Key('bodyField')), 'Updated body text');
+    await tester.enterText(
+      find.byKey(const Key('titleField')),
+      'Updated Title',
+    );
+    await tester.enterText(
+      find.byKey(const Key('bodyField')),
+      'Updated body text',
+    );
     await tester.tap(find.byKey(const Key('saveButton')));
     await tester.pumpAndSettle();
 
@@ -58,7 +69,9 @@ void main() {
   });
 
   testWidgets('Delete existing note', (tester) async {
-    final notes = [{'title': 'Note to delete', 'body': 'Some body'}];
+    final notes = [
+      {'title': 'Note to delete', 'body': 'Some body'},
+    ];
     await tester.pumpWidget(MaterialApp(home: NoteListScreen(notes: notes)));
 
     await tester.longPress(find.text('Note to delete'));
