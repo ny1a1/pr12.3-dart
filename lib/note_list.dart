@@ -5,10 +5,10 @@ import 'note_card.dart';
 class NoteListScreen extends StatefulWidget {
   final List<Map<String, String>> notes;
 
-  const NoteListScreen({required this.notes, Key? key}) : super(key: key);
+  const NoteListScreen({super.key, required this.notes});
 
   @override
-  _NoteListScreenState createState() => _NoteListScreenState();
+  State<NoteListScreen> createState() => _NoteListScreenState();
 }
 
 class _NoteListScreenState extends State<NoteListScreen> {

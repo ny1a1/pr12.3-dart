@@ -6,14 +6,14 @@ class NoteFormWidget extends StatefulWidget {
   final Function(String title, String body)? onSave;
 
   const NoteFormWidget({
+    super.key,
     this.initialTitle,
     this.initialBody,
     this.onSave,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
-  _NoteFormWidgetState createState() => _NoteFormWidgetState();
+  State<NoteFormWidget> createState() => _NoteFormWidgetState();
 }
 
 class _NoteFormWidgetState extends State<NoteFormWidget> {

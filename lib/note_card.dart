@@ -8,13 +8,13 @@ class NoteCard extends StatelessWidget {
   final VoidCallback? onEdit;
 
   const NoteCard({
+    super.key,
     required this.title,
     required this.body,
     required this.date,
     this.onDelete,
     this.onEdit,
-    Key? key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
