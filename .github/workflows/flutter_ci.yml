@@ -1,0 +1,50 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: dart format --set-exit-if-changed .
+
+  test:
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+      - run: flutter pub get
+      - run: flutter test --coverage
+      - uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: coverage/lcov.info
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  build:
+    if: github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+      - run: flutter pub get
+      - run: flutter build apk
