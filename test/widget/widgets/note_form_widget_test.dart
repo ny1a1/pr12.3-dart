@@ -29,17 +29,26 @@ void main() {
       expect(find.text('Body must be at least 10 characters'), findsOneWidget);
     });
 
-    testWidgets('Save button enabled only with valid data', (WidgetTester tester) async {
+    testWidgets('Save button enabled only with valid data', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(MaterialApp(home: NoteFormWidget()));
 
-      final ElevatedButton initialButton = tester.widget(find.byKey(Key('saveButton')));
+      final ElevatedButton initialButton = tester.widget(
+        find.byKey(Key('saveButton')),
+      );
       expect(initialButton.onPressed, isNull);
 
       await tester.enterText(find.byKey(Key('titleField')), 'My Note');
-      await tester.enterText(find.byKey(Key('bodyField')), 'This is valid body text');
+      await tester.enterText(
+        find.byKey(Key('bodyField')),
+        'This is valid body text',
+      );
       await tester.pump();
 
-      final ElevatedButton validButton = tester.widget(find.byKey(Key('saveButton')));
+      final ElevatedButton validButton = tester.widget(
+        find.byKey(Key('saveButton')),
+      );
       expect(validButton.onPressed, isNotNull);
     });
 

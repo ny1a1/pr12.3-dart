@@ -6,14 +6,19 @@ import 'package:flutter/material.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('Full user flow: create → edit → delete note', (WidgetTester tester) async {
+  testWidgets('Full user flow: create → edit → delete note', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(MyApp());
 
     await tester.tap(find.byIcon(Icons.add));
     await tester.pumpAndSettle();
 
     await tester.enterText(find.byKey(Key('titleField')), 'Test Note');
-    await tester.enterText(find.byKey(Key('bodyField')), 'This is a valid body text');
+    await tester.enterText(
+      find.byKey(Key('bodyField')),
+      'This is a valid body text',
+    );
     await tester.tap(find.byKey(Key('saveButton')));
     await tester.pumpAndSettle();
 
@@ -21,7 +26,10 @@ void main() {
 
     await tester.tap(find.text('Test Note'));
     await tester.pumpAndSettle();
-    await tester.enterText(find.byKey(Key('bodyField')), 'Edited body text here');
+    await tester.enterText(
+      find.byKey(Key('bodyField')),
+      'Edited body text here',
+    );
     await tester.tap(find.byKey(Key('saveButton')));
     await tester.pumpAndSettle();
 

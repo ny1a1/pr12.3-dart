@@ -60,22 +60,22 @@ class _NoteListScreenState extends State<NoteListScreen> {
       body: notes.isEmpty
           ? Center(child: Text('No notes yet'))
           : ListView.builder(
-        itemCount: notes.length,
-        itemBuilder: (context, index) {
-          final note = notes[index];
-          return NoteCard(
-            title: note['title']!,
-            body: note['body']!,
-            date: DateTime.now(),
-            onDelete: () {
-              setState(() {
-                notes.removeAt(index);
-              });
-            },
-            onEdit: () => _editNote(index),
-          );
-        },
-      ),
+              itemCount: notes.length,
+              itemBuilder: (context, index) {
+                final note = notes[index];
+                return NoteCard(
+                  title: note['title']!,
+                  body: note['body']!,
+                  date: DateTime.now(),
+                  onDelete: () {
+                    setState(() {
+                      notes.removeAt(index);
+                    });
+                  },
+                  onEdit: () => _editNote(index),
+                );
+              },
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addNote,
         child: Icon(Icons.add),

@@ -8,7 +8,9 @@ void main() {
     expect(find.text('No notes yet'), findsOneWidget);
   });
 
-  testWidgets('Shows list of notes when data exists', (WidgetTester tester) async {
+  testWidgets('Shows list of notes when data exists', (
+    WidgetTester tester,
+  ) async {
     final notes = [
       {'title': 'Note 1', 'body': 'Body text'},
       {'title': 'Note 2', 'body': 'Another body'},
